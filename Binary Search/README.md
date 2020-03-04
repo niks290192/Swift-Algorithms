@@ -118,4 +118,99 @@ In the next figure, the `*` shows the middle item. As you can see, the number of
     [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
     
                                     *
+                                    
+Now binary search will determine which half to use. The relevant section from the code is:
+
+```swift
+if a[midIndex] > key {
+    //use left half
+} else if a[midIndex] < key {
+    // use right half
+} else {
+    return midIndex
+}
+```
+
+In this case, `a[midIndex] = 29`. That's less than the search key, so we can safely conclude that the search key will be in the left half of the array. After all, the left half only contains number smaller than `29`. Hence the search key must be in the right half somewhere (or not in the array at all).
+
+Now we can simply repeat the binary search, but on the array interval from `midIndex + 1` to `range.upperBound`:
+
+    [x, x, x, x, x, x, x, x, x, x | 31, 37, 41, 43, 47, 47, 53, 59, 61, 67]
     
+Since we no longer need to concern ourselfs with the left half of the array, I've marked that with `x`'s. From now on we'll only look at the right half, which starts at array index 10.  
+
+We calculated the index of the new middle element: `midIndex = 10 + (19 - 10)/2 = 14`, and split the array down the middle again. 
+
+    [x, x, x, x, x, x, x, x, x, x | 31, 37, 41, 43, 47, 53, 59, 61, 67]
+                                                    *
+
+As you can see, `a[14]` is indeed the middle element of the array's right 
+half.
+
+Is the search key greater or smaller than `a[14]`? It's smaller because `43 < 47`. This time we're taking the left half and ignore the larger numbers on the right:
+
+    [x, x, x, x, x, x, x, x, x, x | 31, 37, 41, 43 | x, x, x, x, x]
+    
+The new `midIndex` is here:
+
+     [x, x, x, x, x, x, x, x, x, x | 31, 37, 41, 43 | x, x, x, x, x]
+                                         *
+
+The search key is greater than `37`, so continue with right side:
+
+    [x, x, x, x, x, x, x, x, x, x | x, x | 41, 43 | x, x, x, x, x]
+                                           *
+
+Again, the search key is greater, so split once more and take the right side:
+
+
+    [x, x, x, x, x, x, x, x, x, x | x, x | x | 43 | x, x, x, x, x]
+                                               *
+
+And now we're done. The search key equals the array element we're looking at, so we've finally found what we were searching for: number `43` is at array index `13`. 
+
+It may have seemed like a lot of work, but in reality it only took four steps to find the search key in the array, which sounds about right because `log_2(19) = 4.23`. With a linear search, it would have taken 14 steps. 
+
+What would happen if we were to search for `42` instead of `43` ? In that case, we can't split up the array any further, The `range.upperBound` becomes smaller than `range.lowerBound`. That tells the algorithm the search key is not in the array and it returns `nil`.
+
+>**Note:** Many implementations of binary search calculate `midIndex = (lowerBound + upperBound) / 2`. This contains a subtle bug that only appears with very larger arrays, because `lowerBound + upperBound` may overFlow the maximum number an integer can hold. This situation is unlikely to happen on 64-bit CPU, but it definitely can only on 32-bit machines. 
+
+## Iterative vc recursive
+
+Binary Search is recursive in nature because you apply the same logic over and over again to smaller and smaller subarrays. However, that does not mean you must implement `binarySearch()` as a recursive function. It's often more efficient to convert a recursive algorithm into a iterative version, using a simple loop instead of lots of recursive function calls.
+
+Here is an iterative implementation of binary search in Swift:
+
+```swift
+func binarySearch<T: Comparable>(_ a: [T], key: T) -> Int? {
+    var lowerBound = 0
+    var upperBound = a.count
+    while lowerBound < upperBound {
+        let midIndex = lowerBound + (upperBound - lowerBound) / 2
+        if a[midIndex] == key {
+            return midIndex
+        } else if a[midIndex] < key {
+            lowerBound = midIndex + 1
+        } else {
+            upperBound = midIndex
+        }
+    }
+    return nil
+}
+```
+
+As you can see, the code is very similar to the recursive version. The main difference is in the use of the `while` loop.
+
+Use it like this: 
+
+```swift
+let mumbers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
+
+binarySearch(numbers, key: 43) //gives 13
+```
+
+## The End
+
+Is is a problem that the array must be sorted first? it depends, Keep in mind that sorting takes time -- the combination of binary search plus sorting may be slower than doing a simple linear search. Binary search shines in situations where you sort just once and then do many searchs. 
+
+See also [Wikipedia](https://en.wikipedia.org/wiki/Binary_search_algorithm).
