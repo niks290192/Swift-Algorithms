@@ -14,7 +14,7 @@ Code is compatiable with **Xcode 11** and **Swift 5.1**. We'll keep this updated
 
 ## Importants links
 
-[What are algorithms and data structures?](What%20are%20Algorithms.markdown)Pancakes!
+[What are algorithms and data structures?](What%20are%20Algorithms.markdown) Pancakes!
 
 [Why learn algorithms?](Why%20Algorithms.markdown) Worried this isn't your cup of tea? Then read this. 
 
@@ -31,7 +31,7 @@ If you're new to algotithm and data structures, here are a few good ones to star
 - [Stack](Stack/)
 - [Queue](Queue/)
 - [Insertion Sort](Insertion%20Sort)
-- [Binary Search](Binary%20Search/) and [Binary Search Tree](Binary%20Search%20Tree/))
+- [Binary Search](Binary%20Search/) and [Binary Search Tree](Binary%20Search%20Tree/)
 - [Merge Sort](Merge%20Sort/)
 - [Boyer-Moore string search](Boyer-Moore-Horspool/)
 
