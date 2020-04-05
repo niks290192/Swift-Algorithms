@@ -14,7 +14,7 @@ Code is compatiable with **Xcode 11** and **Swift 5.1**. We'll keep this updated
 
 ## Importants links
 
-[What are algorithms and data structures?](What%20are%20Algorithms.markdown)Pancakes!
+[What are algorithms and data structures?](What%20are%20Algorithms.markdown) Pancakes!
 
 [Why learn algorithms?](Why%20Algorithms.markdown) Worried this isn't your cup of tea? Then read this. 
 
