@@ -103,4 +103,77 @@ Resizing includes allocating new memory and copying all the existing data over t
 
 The story for dequeueing is different. To dequeue, we remove the element from the *beginning* of the array. This is always an **O(n)** operation because it requires all remaining array elements to be shifted in memory. 
 
+In our example, dequeuing the first element `"ADA"` copies `"Steve"` in the place of `"Ada"`, `"Tim"` in the place if `"Steve"`, and `"Grace"` in the place of `"Tim"`:
 
+    before   [ "Ada", "Steve", "Tim", "Grace", xxx, xxx ]
+                      /       /      /
+                     /       /      /
+                    /       /      /
+                   /       /      /
+    after   [ "Steve", "Tim", "Grace", xxx, xxx, xxx ]
+
+Moving all these elements in memory is always an **O(n)** operation. SO with our simple implementation of a queue, enqueuing is efficient, but dequeueing leave something to be desired....
+
+## A more efficient queue
+
+To make dequeuing efficient, we can also reserve some extra free space but this time at the front of the array. We must write this coed overselves because the built-in Swift array does not support it. 
+
+The main idea is whenever we dequeue an item, we do not shift the contents of the array to the front (slow) but mark the item's position in the array as empty(fast). After dequeueing `"Ada"`, the array is:
+
+    [ xxx, "Steve", "Tim", "Grace", xxx, xxx ]
+    
+After dequeueing `"Steve"`, the array is:
+
+    [ xxx, xxx, "Tim", "Grace", xxx, xxx ]
+    
+Because these empty spots at the front never get reused, you can periodically trim the array by moving the ermaining elements to the front:
+
+    [ "Tim", "Grace", xxx, xxx, xxx, xxx ]
+    
+This trimming procedure involves shifting which is an **O(n)** operation. Because this only happens once in a while, dequeuing is **O(1)** on average.
+
+Here is how you can implement this version of `Queue`:
+
+```swift
+public struct Queue<T> {
+  fileprivate var array = [T?]()
+  fileprivate var head = 0
+  
+  public var isEmpty: Bool {
+    return count == 0
+  }
+
+  public var count: Int {
+    return array.count - head
+  }
+  
+  public mutating func enqueue(_ element: T) {
+    array.append(element)
+  }
+  
+  public mutating func dequeue() -> T? {
+    guard head < array.count, let element = array[head] else { return nil }
+
+    array[head] = nil
+    head += 1
+
+    let percentage = Double(head)/Double(array.count)
+    if array.count > 50 && percentage > 0.25 {
+      array.removeFirst(head)
+      head = 0
+    }
+    
+    return element
+  }
+  
+  public var front: T? {
+    if isEmpty {
+      return nil
+    } else {
+      return array[head]
+    }
+  }
+}
+```
+    
+    
