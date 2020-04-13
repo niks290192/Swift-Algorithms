@@ -175,5 +175,87 @@ public struct Queue<T> {
   }
 }
 ```
+
+The array now stores objects of type `T?` instead of just `T` because we need to mark array elements as being empty. The `head` variable is the index in the array of the front-most object. 
+
+Most of the new functionality sits in `dequeue()`. When we dequeue an item, we first set `array[head]` to `nil` to remove the object from the array. Then, we increment `head` becaise the next item has become the front one. 
+
+We go from this:
+
+    ["Ada", "Steve", "Tim", "Grace", xxx, xxx]
+    head
     
+to this:
+
+    [xxx, "Steve", "Tim", "Grace", xxx, xxx ]
+            head
+
+It is like if in a supermarket the people in the checkout lane do not suffle forward towards the cash register, but the cash register moves up the queue. 
+
+If we never remove those empty spots at the front then the array will keep growing as we enqueue and dequeue elements. To periodically trim down the array, we do the following:
+
+```swift
+let percentage = Double(head)/Double(array.count)
+if array.count > 50 && percentage > 0.25 {
+    array.removedFirst(Head)
+    head = 0
+}
+```
+
+This calculates the percentage of empty spots at the beginning as a ratio of the total array size. If moew than 25% of the array is unused. we chop off that wasted space. However, if the array is small we do not resize it all the time, so there must be at leaset 50 elements in the array before we try to trim it. 
+
+> **Note:** I just pulled these numbers out of thin air -- you may need to tweak them based on the behavior of your app in a production environment.
+
+To test this in a playground, do the following:
+
+```swift
+var q = Queue<String>()
+q.array // [] empty array
+
+q.enqueue("Ada")
+q.enqueue("Steve")
+q.enqueue("Tim")
+q.array  // [{Some "Ada"}, {Some "Steve"}, {Some "Tim"}]
+q.count  // 3
+
+q.dequeue()  // "Ada"
+q.array      // [nil, {Some "Steve}, {Some "Tim"}]
+q.count      // 2
+
+q.dequeue()  // "Steve"
+q.array      // [nil, nil, {Some "Tim"}]
+q.count      // 1
+
+q.enqueue("Grace")
+q.array      // [nil, nil, {Some  "Time"}, {Some "Grace"}]
+q.count      // 2
+```
+
+To test the trimming behavior, replace the line, 
+
+```swift
+    if array.count > 50 && percentage > 0.25 {
+```
+
+with:
+
+```swift
+    if head > 2 {
+```
+
+Now if you dequeue another object, the array will look as follows:
+
+```swift
+q.dequeue()  // "Tim"
+q.array      // [{Some "Grace"}]
+q.count      // 1
+```
+
+The `nil` objects at the front have been removed, and the array is no longer wasting space. this new version of `Queue` is not more complicated than the first one but dequeuing is now also an **O(1)** operation, just because we were aware about how er used the array. 
+
+## See also
+
+There are many ways to create a queue. Alternative implementaions use a [linked list](../Linked%20List/), a [circular buffer](../Ring%20Buffer/), or a [heap](../Heap/).
+
+Variations on this theme are [deque](../Deque), a double-ended queue where you can enqueue and dequeue at both ends, and [priority queue](../Priority%20Queue/), a sorted queue where the "most important" item is always at the front. 
     
