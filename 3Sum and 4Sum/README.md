@@ -28,8 +28,8 @@ You'll make use of these two rules to create an efficient algorithm.
 Since you pre-sort the array, duplicates will be adjacent to each other. You just need to skip over duplicates by comparing adjacent values:
 
 ```swift
-extension Collection where Element: Equatable {
     
+extension Collection where Element: Equatable {
     /// In a sorted collection, replaces the given index with a successor mapping to a unique element. 
     ///
     /// - Parameter index: A valid index of the collection. `index` must be less than `endIndex`
