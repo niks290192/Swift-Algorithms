@@ -101,3 +101,64 @@ func threeSum<T: BidirectionalCollection>(_ collection: T, target: T.Element) ->
     return ret
 }
  ```
+## 4Sum
+
+> Given an array S of n integers, find all subsets of the array with 4 values where the 4 values sum up to a target number.
+>
+> **Note**: The Solution set must not contain duplicate quadruplets.
+
+### Solution
+
+Foursum is a very straightforward extension to the threeSUm algorithm. In threeSum, you kept track of 3 indices:
+
+
+```swift
+      m ->      <- r
+[-4, -1, -1, 0, 1, 2]
+  l   
+```
+
+For fourSum, you'll keep track of 4:
+
+```swift
+         mr ->  <- r
+[-4, -1, -1, 0, 1, 2]
+  l  ml -> 
+```
+
+Here's the code for it (notice it is very similar to 3Sum):
+
+```swift
+func fourSum<T: BidirectionalCollection>(_ collection: T, target: T.Element) -> [[T.Element]] where T.Element: Numeric & Comparable {
+    let sorted = collection.sorted()
+    var ret: [[T.Element]] = []
+    
+    var l = sorted.startIndex
+    fourSum: while l < sorted.endIndex { defer { sorted.formUniqueIndex(after: &l) } 
+        var ml = sorted.index(after: l)
+        
+        ThreeSum: while ml < sorted.endIndex { defer { sorted.formUniqueIndex(after: &ml) }
+            var mr = sorted.index(after: ml)
+            var r = sorted.index(before: sorted.endIndex)
+            
+            TwoSum: while mr < r && r < sorted.endIndex {
+                let sum = sorted[l] + sorted[ml] + sorted[mr] + sorted[r]
+                if sum == target {
+                    ret.append([sorted[l], sorted[ml], sorted[mr], sorted[r])
+                    sorted.formUniqueIndex(after: &mr)
+                    sorted.formUniqueIndex(before: &r)
+                } else if sum < target {
+                        sorted.formUniqueIndex(after: &mr)
+                } else {
+                    sorted.formUniqueIndex(before: &r)
+                }
+            }
+        }
+    }
+    return ret
+}
+```
+
+[5]: https://github.com/niks290192/Data-Structures-Swift/tree/master/3Sum%20and%204Sum
+
+
