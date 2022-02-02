@@ -1,4 +1,19 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <Workspace
    version = "1.0">
+   <FileRef
+      location = "group:Algorithm Design.md">
+   </FileRef>
+   <FileRef
+      location = "group:Big-O Notation.md">
+   </FileRef>
+   <FileRef
+      location = "group:Why Algorithms.md">
+   </FileRef>
+   <FileRef
+      location = "group:What are Algorithms.md">
+   </FileRef>
+   <FileRef
+      location = "group:README.md">
+   </FileRef>
 </Workspace>
