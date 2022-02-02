@@ -14,7 +14,7 @@ const tweet = async (status) => {
 (async () => {
   try {
     const myTweet =
-      `#Checkout this #DataStructures #swift #projects in #SWIFT #DATA #Structures #Repo on @github https://bit.ly/3CV3nPe #Follow: @NiKs290192 on #Github, #Twitter, #Instagram for more updates :)`;
+      `#Checkout this #DataStructures #swift #projects in #SWIFT #DATA #Structures #Repo on @github   https://bit.ly/3CV3nPe #Follow: @NiKs290192 on #Github, #Twitter, #Instagram for more updates :)`;
     await tweet(myTweet);
   } catch (err) {
     console.error(err);
