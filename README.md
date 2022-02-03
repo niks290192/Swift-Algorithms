@@ -1,5 +1,5 @@
 
-![Swift Algorithms]
+! [Swift Algorithms]
 
 #Welcome to the Swift Algorithms!
 
@@ -14,7 +14,7 @@ Code is compatible with **Xcode 10** and **Swift 4.2**. We'll keep this updated 
 :heart_eyes: **Suggestions and contributions are welcome!** :heart_eyes:
 
 
-##Important links
+## Important links
 
 [What are algorithms and data structures?](What%20are%20Algorithms.md) Pancakes!
 
