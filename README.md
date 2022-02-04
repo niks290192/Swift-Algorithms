@@ -1,5 +1,5 @@
 
-! [Swift Algorithms]
+![Swift Algorithms]()
 
 #Welcome to the Swift Algorithms!
 
