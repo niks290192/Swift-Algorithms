@@ -7,6 +7,9 @@
       <FileRef
          location = "group:Queue-Simple.swift">
       </FileRef>
+      <FileRef
+         location = "group:Queue-Optimized.swift">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
