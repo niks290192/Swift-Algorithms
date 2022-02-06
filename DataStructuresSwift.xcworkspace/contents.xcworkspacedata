@@ -2,7 +2,7 @@
 <Workspace
    version = "1.0">
    <Group
-      location = "container:"
+      location = "group:Queue"
       name = "Queue">
       <FileRef
          location = "group:Queue-Simple.swift">
