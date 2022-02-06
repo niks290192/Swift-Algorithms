@@ -3,6 +3,13 @@
    version = "1.0">
    <Group
       location = "container:"
+      name = "Queue">
+      <FileRef
+         location = "group:Queue-Simple.swift">
+      </FileRef>
+   </Group>
+   <Group
+      location = "container:"
       name = "Stack">
       <FileRef
          location = "group:Stack/Test/Test.xcodeproj">
