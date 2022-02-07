@@ -15,7 +15,7 @@
 
 import Foundation
 
-public struct Queue<T> {
+public struct QueueO<T> {
     fileprivate var array = [T?]()
     fileprivate var head = 0
     

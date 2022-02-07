@@ -5,6 +5,9 @@
       location = "group:Queue"
       name = "Queue">
       <FileRef
+         location = "group:QueueTest/QueueTest.xcodeproj">
+      </FileRef>
+      <FileRef
          location = "group:Queue-Simple.swift">
       </FileRef>
       <FileRef

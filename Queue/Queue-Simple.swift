@@ -11,7 +11,7 @@
 //  Enqueuing is an O(1) operation, dequeuing is O(n). Note: If the queue had been implemented with a linked list, then both would be O(1).
 //
 
-public struct Queue<T> {
+public struct QueueS<T> {
     fileprivate var array = [T]()
     
     public var count: Int {
