@@ -83,3 +83,28 @@ OR
 ```
 
 Merge Sort and Heap Sort are examples of o(n log n) complexity.
+
+**O(n^2)**
+
+```swift
+    for i in stride(from: 0, to: n, by: 1) {
+        for j in stride(from: 1, to: n, by: 1) {
+            // do contant time stuff
+        }
+    }
+```
+
+Traversing a simple 2-D array and Bubble Sort are examples of O(n^2) complexity.
+
+**O(n^3)**
+
+```swift
+    for i in stride(from: 0, to: n, by: 1) {
+        for j in stride(from: 1, to: n, by: 1) {
+            for k in stride(from: 1, to: n, by: 1) {
+                // do constant time stuff
+            }
+        }
+    }
+```
+
