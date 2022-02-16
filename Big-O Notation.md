@@ -108,3 +108,36 @@ Traversing a simple 2-D array and Bubble Sort are examples of O(n^2) complexity.
     }
 ```
 
+**O(2^n)**
+
+Algorithm with running time O(2^N) are often recursive algorithms that solve a problem of size N by recursively solving two smaller problems of size N-1. The following example prints all the moves necessary to solve the famous "Towers of Hanoi" problem for N disks. 
+
+```swift
+    func solveHanoi(n: Int, from: String, to: String, spare: String) {
+        guard n >= 1 else { return }
+        if n > 1 {
+            solveHanoi(n: n - 1, from: from, to: spare, spare: to)
+        } else {
+            solveHanoi(n: n - 1, from: spare, to: to, spare: from)
+        }
+    }
+``` 
+
+**O(n!)**
+
+The most trivial example of function that takes O(n!) time is given below.
+
+```swift
+    func nFactfunc(n: Int) {
+        for i in stride(from: 0, to: n, by: 1) {
+            nFactFunc(n: n - 1)
+        }
+    }
+```
+
+Often you don't need math to figure out what the Big-O of an algorithm is but you can simply use your intuition. If your code uses single loop that looks at all **n** elements of your input, the algorithm is **O(n)**. If the code has two nested loops, it is **O(n^2)**. Three nested loops gives **O(n^3)**, and so on. 
+
+
+Note that Big-O notation is an estimate and is only really useful for large values of **n**. For example, the worst-case running time for the [insertion sort](Insertion%20Sort/) algoritm is  **O(n^2)**. In theory that is worse than the running time for [merge sort](Merge%20Sort/), which is **O(n log n)**. But for small amounts of data, insertion sort is actually faster, especially if the array is partially sorted already!
+
+If you find this confusing, don't let this Big-O stuff bother you too much. It's mpstly useful when comparing two algorithms to figure out which one is better. But in the end you still want to test in practice which one really is the best. And if the amount of data is relatively small, then even a slow algorithm will be fast enough for practical use. 
