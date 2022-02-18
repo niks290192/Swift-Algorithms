@@ -13,6 +13,9 @@
       <FileRef
          location = "group:Queue-Optimized.swift">
       </FileRef>
+      <FileRef
+         location = "group:Queue.playground">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
