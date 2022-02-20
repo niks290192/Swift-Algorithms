@@ -16,6 +16,9 @@
       <FileRef
          location = "group:Queue.playground">
       </FileRef>
+      <FileRef
+         location = "group:README.md">
+      </FileRef>
    </Group>
    <Group
       location = "container:"
