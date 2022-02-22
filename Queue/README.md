@@ -77,3 +77,26 @@ public struct Queue<T> {
 }
 ```  
 This queue works well, but it is not optimal. 
+
+Enqueuing is an **O(1)** operation because adding to the end of an array always takes the same amount of time regardless of the size of the array.
+
+You might be wondering why appending items to an array is **O(1)** or an constant-time operation. That is because an array is Swift always has some empty space at the end. If we do the following:
+
+```swift
+var queue = Queue<String>()
+queue.enqueue("Ada")
+queue.enqueue("Steve")
+queue.enqueue("Tim")
+```
+
+then the array might actually look like this:
+
+    ["Ada", "Steve", "Tim", xxx, xxx, xxx]
+    
+where `xxx` is memory that is reserved but not filled in yet. Adding a new element to the array overwrites the next unused spot:
+
+    ["Ada", "Steve", "Tim", "Grace", xxx, xxx ]
+    
+This results by copying memory from one place to another which is a constant-time operation. 
+
+There are only a limited number of unused spots at the end of the array. When the last `xxx` get used, and you want to add another item, the array needs to resize to make more room. 
