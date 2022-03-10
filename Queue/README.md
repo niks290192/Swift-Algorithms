@@ -178,3 +178,30 @@ The main idea is whenever we dequeue an item, we do not shift the contents of th
         }
     }
 ```
+The array now stores object of type `T?` instead of just `T` because we need to mark array elements as being empty. The `head` variable is the index in the array of the front-most object. 
+
+Most of the new functionality sits in `dequeue()`. When we dequeue an item, we first set `array[head]` to `nil` to remove the object from the array. Then, we increment `head` because the next item has become the front one. 
+
+We go from this:
+
+    [ "Ada", "Steve", "Tim", "Grace", xxx, xxx ]
+      head
+      
+to this:
+
+    [ xxx, "Steve", "Tim", "Grace", xxx, xxx ]
+            head
+            
+It is like if in a supermarket the people in the checkout lane do not shuffle forward towards the cash register, but the cash register moves up the queue. 
+
+If we never remove those empty spots at the front then the array will keep growing as we enqueue and dequeue elements. To periodically trim down the array, we do the following:
+
+```swift
+    let precentage = Double(head)/Double(array.count)
+    if array.count > 50 && percentage > 0.25 {
+        array.removeFirst(head)
+        head = 0
+    }
+```
+
+This calculates the percentage of empty spots at the beginning as a ratio of the total array size. If more than 25% of the array is unused, we chop off that wasted space. However, if the array is small we do noy resize it all the time, so there must be at least 50 element in the array before we try to trim it. 
