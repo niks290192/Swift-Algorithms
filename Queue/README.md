@@ -205,3 +205,62 @@ If we never remove those empty spots at the front then the array will keep growi
 ```
 
 This calculates the percentage of empty spots at the beginning as a ratio of the total array size. If more than 25% of the array is unused, we chop off that wasted space. However, if the array is small we do noy resize it all the time, so there must be at least 50 element in the array before we try to trim it. 
+
+> **Note:** I just pulled thses numbers out of thin air -- you may need to tweek them based on the behavior of your app in a production environment.
+
+To test this in a playground, do the following:
+
+```swift
+var q = Queue<String>()
+q.array                   // [] empty array
+
+q.enqueue("Ada")
+q.enqueue("Steve")
+q.enqueue("Tim")
+q.array             // [{Some "Ada"}, {Some "Steve"}, {Some "Tim"}]
+q.count             // 3
+
+q.dequeue()         // "Ada"
+q.array             // [nil, {Some "Steve"}, {Some "Tim"}]
+q.count             // 2
+
+q.dequeue()         // "Steve"
+q.array             // [nil, nil, {Some "Tim"}]
+q.count             // 1
+
+q.enqueue("Grace")
+q.array             // [nil, nil, {Some "Tim"}, {Some "Grace"}]
+q.count             // 2
+```
+To test the trimming behaviour, replace the line, 
+
+```swift
+    if array.count > 50 && percentage > 0.25 {
+```
+
+with:
+
+```swift
+    if head > 2 {
+```
+
+Now ig you dequeue another object, the array will look as follows:
+
+```swift
+q.dequeue()         // "Tim"
+q.array             // [{Some "Grace"}]
+q.count             // 1
+``` 
+
+The `nil` object at the front have been removed, and the array is no longer wasting space. This new version of `Queue` is not more complicated than the first one but dequeuing is now also an **O(1)**
+operation, just because we were aware about how we used the array. 
+
+
+## See also
+
+There are many ways to create a queue. Alternative implementations use a [linked list](../Linked%20List/), a [circular buffer](../Ring%20Buffer/), or a [heap](../Heap/). 
+
+Variations on this theme are [deque](../Deque/), a double-ended queue where you can enqueue and dequeue at both ends, and [priority queue](../Priority%20Queue/), a sorted queue where the "most important" item is always at the front.
+
+*Written for Swift Algorithm Club by Matthijs Hollemans*
+
