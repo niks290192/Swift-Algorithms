@@ -262,5 +262,5 @@ There are many ways to create a queue. Alternative implementations use a [linked
 
 Variations on this theme are [deque](../Deque/), a double-ended queue where you can enqueue and dequeue at both ends, and [priority queue](../Priority%20Queue/), a sorted queue where the "most important" item is always at the front.
 
-*Written for Swift Algorithm Club by Matthijs Hollemans*
+*Written for Swift Algorithm Nikhil Arora*
 
