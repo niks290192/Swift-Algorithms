@@ -36,9 +36,16 @@
          location = "group:Stack/Stack.playground">
       </FileRef>
    </Group>
-   <FileRef
-      location = "group:Insertion Sort">
-   </FileRef>
+   <Group
+      location = "container:"
+      name = "Insertion Sort">
+      <FileRef
+         location = "group:InsertionSort.swift">
+      </FileRef>
+      <FileRef
+         location = "group:InsertionSort.playground">
+      </FileRef>
+   </Group>
    <FileRef
       location = "group:Algorithm Design.md">
    </FileRef>
