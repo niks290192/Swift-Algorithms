@@ -37,6 +37,9 @@
       </FileRef>
    </Group>
    <FileRef
+      location = "group:Insertion Sort">
+   </FileRef>
+   <FileRef
       location = "group:Algorithm Design.md">
    </FileRef>
    <FileRef
