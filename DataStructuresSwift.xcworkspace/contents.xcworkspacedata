@@ -2,6 +2,19 @@
 <Workspace
    version = "1.0">
    <Group
+      location = "group:Insertion Sort"
+      name = "Insertion Sort">
+      <FileRef
+         location = "group:InsertionSort.swift">
+      </FileRef>
+      <FileRef
+         location = "group:InsertionSort.playground">
+      </FileRef>
+      <FileRef
+         location = "group:README.md">
+      </FileRef>
+   </Group>
+   <Group
       location = "group:Queue"
       name = "Queue">
       <FileRef
@@ -34,16 +47,6 @@
       </FileRef>
       <FileRef
          location = "group:Stack/Stack.playground">
-      </FileRef>
-   </Group>
-   <Group
-      location = "container:"
-      name = "Insertion Sort">
-      <FileRef
-         location = "group:InsertionSort.swift">
-      </FileRef>
-      <FileRef
-         location = "group:InsertionSort.playground">
       </FileRef>
    </Group>
    <FileRef
