@@ -24,3 +24,35 @@ Pick the next number from the pile, `3`, and insert it into the sorted array. It
 Pick the number from the pile, `5`, and insert it into the sorted array. It goes in between the `3` and `8`. The sorted array is `[3, 5, 8]` and the pile is `[4, 6]`
 
 Repeat this process until the pile is empty. 
+
+## In-place sort
+
+The above explanation makes it seem like you need two array: one for the unsorted pile and one that contains the numbers in sorted order.
+
+But you can perform the insertion sort *in-place*, without having to create a separate array. You just keep track of which part of the array is sorted already and which part is the unsorted pile. 
+
+Initially, the array is `[8, 3, 5, 4, 6]`. the `|` bar shows where the sorted portion ends and the pile begins:
+
+    [| 8, 3, 5, 4, 6 ]
+
+This shows that the sorted portion is empty and the pile starts at `8`.
+
+After processing he first number, we have:
+
+    [ 8 | 3, 5, 4, 6 ]
+    
+The sorted portion is `[8]` and the pile is `[3, 5, 4, 6]`. The `|` bar has shifted one position to the right. 
+
+This is how the content of the array changes during the sort:
+
+    [| 8, 3, 5, 4, 6 ]
+    [ 8 | 3, 5, 4, 6 ]
+    [ 3, 8 | 5, 4, 6 ]
+    [ 3, 5, 8 | 4, 6 ]
+    [ 3, 4, 5, 8 | 6 ]
+    [ 3, 4, 5, 6, 8 |]
+    
+In each step, the `|` bar moves up one position. As you can see, the beginning of the array up to the `|` is always sorted. The pile shrinks by one and the sorted portion grows by one, until the pile is empty and there are no more unsorted numbers left. 
+
+
+
