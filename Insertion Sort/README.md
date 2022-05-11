@@ -55,4 +55,34 @@ This is how the content of the array changes during the sort:
 In each step, the `|` bar moves up one position. As you can see, the beginning of the array up to the `|` is always sorted. The pile shrinks by one and the sorted portion grows by one, until the pile is empty and there are no more unsorted numbers left. 
 
 
+## How to insert
 
+At each step you pick the top-most number from the unsorted pile and insert it into the sorted portion of the array. You must put that number in the proper place so that the beginning of the array remains sorted. How does that work?
+
+Let's say we've already done the first few elements and the array looks like this:
+
+        [3, 5, 8 | 4, 6]
+        
+The next number to sort is `4`. We need to insert that into the sorted portion `[3, 5, 8]` somewhere.
+
+Here's one way to do this: Look at the previous element, `8`.
+
+        [3, 5, 8, 4 | 6]
+               ^
+
+Is this greater that `4` ? Yes it is, so the `4` should come before the `8`. We swap these two numbers to get:
+
+        [3, 5, 4, 8 | 6]
+               <-->
+              Swapped
+              
+We're not done yet. The new previous element, `5`, is also greater than `4`. We also swap these two numbers:
+
+        [3, 4, 5, 8 | 6]
+            <-->
+           swapped
+
+
+Again, look at the previous element. Is `3` greater than `4`? No, it is not. That means we're done with number `4`. The beginning of the array is sorted again. 
+
+This was a description of the inner loop of the insertion sort algorithm, which you'll see in the next section. It inserts the number from the top of the pile into the sorted portion by swapping numbers. 
