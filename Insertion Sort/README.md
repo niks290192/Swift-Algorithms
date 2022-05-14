@@ -120,4 +120,11 @@ Here is how the code works.
 
 3. The inner loop looks at the element at position `x`. This is the number at the top of the pile, and it may be smaller than eny of the previous elements. The inner loop steps backwards through the sorted array; every time it finds a pervious number that is larger, it swaps them. When the inner loop completes, the beginning of the array is sorted again, and the sorted portion has grown by one element. 
 
-> **Note:** The outer loop starts at index 1, not 0. Moving the very first element from the pile to the sorted portion doesn't actually change anything, so we might as well skip it. 
+> **Note:** The outer loop starts at index 1, not 0. Moving the very first element from the pile to the sorted portion doesn't actually change anything, so we might as well skip it.
+
+
+## No more swaps
+
+the above version of insertion sort works fine, but it can be made a tiny bit faster by removing the call to `swap()`.
+
+You've seen that we swap numbers to move the next element into its sorted position: 
