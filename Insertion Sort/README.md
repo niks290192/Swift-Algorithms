@@ -128,3 +128,46 @@ Here is how the code works.
 the above version of insertion sort works fine, but it can be made a tiny bit faster by removing the call to `swap()`.
 
 You've seen that we swap numbers to move the next element into its sorted position: 
+
+        [ 3, 5, 8, 4 | 6 ]
+                <-->
+                swap
+
+        
+        [ 3, 5, 4, 8 | 6 ]
+             <-->
+             swap
+             
+Instead of swapping with each of the previous elements, we can just shift all those elements one position right and then copy the new number into the right position. 
+
+        [ 3, 5, 8, 4, | 6 ] remember 4
+                   *
+
+        [ 3, 5, 8, 8, | 6 ] shift 8 to the right
+                 --->
+                 
+        [ 3, 5, 5, 8 | 6 ] shift 5 to the right 
+             --->
+             
+        [ 3, 4, 5, 8 | 6 ] copy 4 into place
+             *
+
+In code that looks like this:
+
+```swift
+    func insertionSort(_ array: [Int]) -> [Int] {
+        var a = array
+        for x in 1..<a.count {
+            var y = x
+            let temp = a[y]
+            while y > 0 && temp < a[y - 1] {
+                a[y] = a[y - 1]               //1
+                y -= 1
+            }
+            a[y] = temp                       //2
+        }
+        return a
+    }
+```
+
+The line at `//1` is what shifts up the pervious elements by one position. At the end of the inner loop, `y` is the destination index for the new number in the sorted portion, and the line at `//2` copies this number into place.
