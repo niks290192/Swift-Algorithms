@@ -171,3 +171,61 @@ In code that looks like this:
 ```
 
 The line at `//1` is what shifts up the pervious elements by one position. At the end of the inner loop, `y` is the destination index for the new number in the sorted portion, and the line at `//2` copies this number into place.
+
+## Making it generic 
+
+It would be nice to sort other things than just numbers. We can make the datatype of the array generic and use a user-supplied function (or closure) to perform the less-than comprison. This only requires two changes to the code. 
+
+the function signature becomes:
+
+```swift
+func insertionSort<T>(_ array: [T], _ isOrderBefore: (T, T) -> Bool) -> [T] {
+```
+
+The array has time `[T]` where `T` is the placeholder type for the generics. Now `insertionSort()` will accept any kind of array, whether it contains numbers, strings, or something else. 
+
+The new parameter `isOrderBefore: (T, T) -> Bool` is a function that takes two `T` objects and returns true if the first object comes before the second, and false if the second object should come before the first. This is exactly what Swift's build-in `sort()` function does. 
+
+Instead of writing `temp <[y - 1]`, we call the `isOrderBefore()` function. It does the exact same thing, expect we can now compare any kind of object, not just numbers.
+
+To test this in a playground, do:
+
+```swift
+let numbers = [ 10, -1, 3, 9, 2, 27, 8, 5, 1, 3, 0, 26 ]
+insertionSort(numbers, <)
+insertionSort(numbers, >)
+``` 
+
+The `<` and `>` determine the sort order, low-to-high and high-to-low, respectively. 
+
+Of course, you can also sort other things such as strings, 
+
+```swift
+let strings = ["b", "a", "d", "c", "e" ]
+insertionSort(strings, <)
+``` 
+
+or even more complex objects:
+
+```swift
+let objects = [obj1, obj2, obj3, ...]
+insertionSort(objects) { $0.priority < $1.priority }
+```
+
+The closure tells `insertionSort()` to sort on the `priority` property of the objects.
+
+Insertion sort is a *stable* sort. A sort is stable when elements that have identical sort keys remain in the same relative order after sorting. This is not important for simple values such as numbers or strings, but it is important when sorting more complex objects. In the example above, If two objects have the same `priority`, regardless of the vales of their other peoperties, those two objects don't get swapped around. 
+
+## Performance 
+
+Insertion sort is really fast if the array is already sorted. That sounds obvious, but this is not true for all search algorithms. In practice, a lot of data will already be largely -- If not entirely -- sorted and insertion sort works quite well in that case. 
+
+The worst-case and average case performance of insertion sort is **O(n^2)**. That's because there are two nested loops in this function. Other sort algorithms, such as quicksort and merge sort, have **O(n log n)** performance, which is faster on larger inputs. 
+
+Insertion sort is actually very fast for sorting small arrays. Some standards libraries have sort functions that switch from a quicksort to insertion sort when the partition size is 10 or less. 
+
+I did a quick test comparing our `insertionSort()` with Swift's build-in `sort()`. On arrays of above 100 items or so, the difference in speed is tiny. However, as your inputs becomes larger, **o(n^2)** quickly starts to perform a lot worse than **O(n log n)** and insertion sort just can't keep up. 
+
+## See also
+
+[Insertion sort on Wikipedia](https://en.wikipedia.org/wiki/Insertion_sort)
