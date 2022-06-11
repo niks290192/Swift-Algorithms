@@ -7,6 +7,9 @@
       <FileRef
          location = "group:BinarySearch.swift">
       </FileRef>
+      <FileRef
+         location = "group:BinarySearch.playground">
+      </FileRef>
    </Group>
    <Group
       location = "group:Insertion Sort"
