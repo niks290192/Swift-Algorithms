@@ -10,6 +10,9 @@
       <FileRef
          location = "group:BinarySearch.playground">
       </FileRef>
+      <FileRef
+         location = "group:/Users/nikhilarora/Documents/Data-Structures-Algorithms/Swift/Data-Structures-Swift/Binary Search/README.md">
+      </FileRef>
    </Group>
    <Group
       location = "group:Insertion Sort"
