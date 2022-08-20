@@ -52,3 +52,46 @@ Here's how binary search works:
 - This repeats until the search key is found. If the array cannot be split up any further, you must regrettably conclude that the search key is not present in the array. 
 
 Now you know why it's called a "binary" search: in every step it splits the array into two halves. This process of *divide-and-conquer* is what allows it to quickly narrow down where the search key must be. 
+
+## The Code
+
+Here is an recursive implementation of binary search in Swift:
+
+```swift
+func binarySearch<T: Comparable>(_ a: [T], key: T, range: Range<Int>) -> Int? {
+    if range.lowerBound >= range.upperBound {
+        // if we get here, then the search key is not present in the array.
+        return nil
+    } else {
+        // Calculate where to split the array.
+        let midIndex = range.lowerBound + (range.upperBound - range.lowerBound) / 2
+        
+        // Is the search key in the left half?
+        if a[midIndex] > key {
+            return binarySearch(a, key: key, range: range.lowerBound ..< midIndex)
+            
+        // Is the search key in the right half?
+        } else if a[midIndex] < key {
+            return binarySearch(a, key: key, range: midIndex + 1 ..< range.upperBound)
+            
+        // If we get here, then we've found the search key!    
+        } else {
+            return midIndex
+        }
+    }
+}
+```
+
+To try this out, copy the code to a playground and do:
+
+```swift
+let numbers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
+
+binarySearch(number, key: 43, range: 0 ..< numbers.count) // gives 13
+```
+
+Note that the `numbers` array is sorted. The binary search algorithm does not work otherwise!
+
+I said that binary search works by splitting the array in half, but we don't actually create two new arrays. Instead, we keep track of these splits using a Swift `Range` object. Initially, this range covers the entire array, `0 ..< numbers.count`. As we split the array, the range becomes smaller and smaller. 
+
+> **Note:** One thing to be aware of is that `range.upperBound` always points one beyond the last element. In the example, the range is `0..<19` because there are 19 numbers in the array, and so `range.lowerBound = 0` and `range.upperBound = 19`. But in our array the last element is at index 18, not 19, since we start counting from 0. Just keep this in mind when working with ranges: the `upperBound` is always one more than the index of the last element. 
