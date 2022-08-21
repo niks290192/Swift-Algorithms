@@ -95,3 +95,42 @@ Note that the `numbers` array is sorted. The binary search algorithm does not wo
 I said that binary search works by splitting the array in half, but we don't actually create two new arrays. Instead, we keep track of these splits using a Swift `Range` object. Initially, this range covers the entire array, `0 ..< numbers.count`. As we split the array, the range becomes smaller and smaller. 
 
 > **Note:** One thing to be aware of is that `range.upperBound` always points one beyond the last element. In the example, the range is `0..<19` because there are 19 numbers in the array, and so `range.lowerBound = 0` and `range.upperBound = 19`. But in our array the last element is at index 18, not 19, since we start counting from 0. Just keep this in mind when working with ranges: the `upperBound` is always one more than the index of the last element. 
+
+## Stepping through the example
+
+It might be useful to look how the algorithm works in detail. 
+
+The array from the above example consists of 19 numbers and looks like this when sorted:
+
+    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
+    
+We're trying to determine if the number `43` is in this array.
+
+To split the array in half, wwe need to know the index of the object in the middle. That's determined by this line:
+
+```swift
+let midIndex = range.lowerBound + (range.upperBound - range.lowerBound) / 2 
+```
+
+Initially, the range has `lowerBound = 0` and `upperBound = 19`. Filling in these values, we find that `midIndex` is `0 + (19 - 0)/2 = 19/2 = 9`. It's actually `9.5` but because we're using integers, the answer is rounded down. 
+
+In the next figure, the `*` shows the middle item. As you can see, the number of items on each side is the same, so we're split right down the middle. 
+
+    [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
+                                      *
+
+Now binary search will determine which half to use. The relevant section from the code is:
+
+```swift
+if a[midIndex] > key {
+    // use left half
+} else if a[midIndex] < key {
+    // use right half
+} else {
+    return midIndex 
+}
+```
+
+In this case, `a[midIndex] = 29`. That's less than the search key, so we can safely conclude that the search key will never be in the left half of the array. After all, the left half only contains numbers smaller than `29`. Hence, the search key must be in the right half somewhere (or not in the array at all). 
+
+
