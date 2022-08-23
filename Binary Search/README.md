@@ -171,4 +171,45 @@ It may have seemed like a lot of work, but in reality it only took four steps to
 
 What would happen if we were to search for `42` instead of `43`? In that case, we can't split up the array any further. The `range.upperBound` becomes smaller than `range.lowerBound`. That tells the algorithm the search key is not in the array and it returns `nil`.
 
-> **Note:** Many implementation of binary search calculate `midIndex = (lowerBound + upperBound) / 2`. This contains a subtle bug that only appears with very large arrays, because `lowerBound + upperBound` may overflow the maximum number an integer can hold. This situation is unlikely to happen on a 64-bit CPU, but it definitely can on 32-bit machines. 
+> **Note:** Many implementation of binary search calculate `midIndex = (lowerBound + upperBound) / 2`. This contains a subtle bug that only appears with very large arrays, because `lowerBound + upperBound` may overflow the maximum number an integer can hold. This situation is unlikely to happen on a 64-bit CPU, but it definitely can on 32-bit machines.
+
+## Iterative vs recursive
+
+Binary search is recursive in nature because you apply same logic over and over again to smaller and smaller subarrays. However, that does not mean you must implement `binarySearch()` as a recursive function. It's often more efficient to convert a recursive algorithm into an iterative version, using a simple loop instead of lots of recursive function calls. 
+
+Here is an iterative implementation of binary search in swift:
+
+```swift
+func binarySearch<T: Comparable>(_ a: [T], key: T) -> Int? {
+    var lowerBound = 0
+    var upperBound = a.count
+    while lowerBound < upperBound {
+        let midIndex = lowerBound + (upperBound - lowerBound) / 2
+        if a[midIndex] == key {
+            return midIndex
+        } else if a[midIndex] < key {
+            lowerBound = midIndex + 1
+        } else {
+            upperBound = midIndex
+        }
+    }
+    
+    return nil
+}
+```
+
+As you can see, the code is very similar to the recursive version. The main difference is in the use of the `while` loop.
+
+Use it like this:
+
+```swift
+let numbers = [2, 3, 5, 7, 11, 13, 17, 19, 23, 29, 31, 37, 41, 43, 47, 53, 59, 61, 67]
+
+binarySearch(numbers, key: 43) // gives 13
+```
+
+## The end
+
+Is it a problem that the array must be sorted first? It depends. Keep in mind that sorting takes time -- the combination of binary search plus sorting may be slower than doing a simple linear search. Binary search shines in situations where you sort just once and then do many searches. 
+
+See also [Wikipedia](https://en.wikipedia.org/wiki/Binary_search_algorithm). 
