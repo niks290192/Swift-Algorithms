@@ -2,6 +2,13 @@
 <Workspace
    version = "1.0">
    <Group
+      location = "container:"
+      name = "BinarySearchTree">
+      <FileRef
+         location = "group:BinarySearchTree/README.md">
+      </FileRef>
+   </Group>
+   <Group
       location = "group:Binary Search"
       name = "Binary Search">
       <FileRef

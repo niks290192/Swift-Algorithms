@@ -1,0 +1,25 @@
+{
+  "configurations" : [
+    {
+      "id" : "0C1F400F-5431-442C-827A-0ECAF8D3055B",
+      "name" : "Configuration 1",
+      "options" : {
+
+      }
+    }
+  ],
+  "defaultOptions" : {
+    "testTimeoutsEnabled" : true
+  },
+  "testTargets" : [
+    {
+      "parallelizable" : true,
+      "target" : {
+        "containerPath" : "container:..\/..\/Binary Search\/BinarySearchTest\/BinarySearchTest.xcodeproj",
+        "identifier" : "9542B60928B5DFB000442584",
+        "name" : "BinarySearchTest"
+      }
+    }
+  ],
+  "version" : 1
+}
