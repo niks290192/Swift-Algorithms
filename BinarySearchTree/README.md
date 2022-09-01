@@ -37,3 +37,21 @@ There is only one possible place where the new element can be inserted in the tr
 > **Note:** The *height* of a node is the number of steps it takes to go from that node to its lowest leaf. The height of the entire tree is the distance from the root of the lowest leaf. Many of the operations on a binary treeare expressed in terms of the tree's height.
 
 By following this simple rule - smaller values on the left, larger values on the right -- we keep the tree sorted, so whenever we query it, we can check if a value is in the tree. 
+
+
+## Searching the tree
+
+To find a value in the tree, we perform the same steps as with insertion:
+
+- If the value is less than the current node, then take the left branch.
+- If the value is greater than current node, take the right branch.
+- If the value is equal to the current node, we've found it!
+
+Like most tree operations, this is performed recursively until we find what we are looking for or run out of the nodes to look at. 
+
+Here is an example for searching the value `5`:
+
+![Searching the tree](Images/Searching.png)
+
+Searching is fast using the structure of the tree. It runs in **O(h)** time. If you have a well-balanced tree with a million nodes, it only takes about 20 steps to find anything in this tree. (The idea is very similar to [binary search](../Binary%Search) in an array.)
+
